@@ -22,3 +22,7 @@ TBD
 #### Server Settings
 
 TBD
+
+### Credits
+
+The PMD Personality Quiz data provided by: [Nrosa01's PMD Quiz Online](https://github.com/Nrosa01/pmd-quiz-online)
