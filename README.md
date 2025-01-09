@@ -1,6 +1,6 @@
 # PMD Bot
 
-A Discord bot written in Python using [Discord.py](https://github.com/Rapptz/discord.py)
+A Discord bot written in Python using [Pycord](https://pycord.dev)
 
 PMD Bot runs a simulation of the Pokémon Mystery Dungeon universe for use in Discord channels.
 
