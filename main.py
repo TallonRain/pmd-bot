@@ -1,14 +1,13 @@
 import os
 import discord
 from discord import application_command
-from discord.ext import commands, bridge
+from discord.ext import commands
 from dotenv import load_dotenv
 import fixup
 import datetime
 from zoneinfo import ZoneInfo
 import json
 import sqlite3
-
 
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
@@ -18,32 +17,27 @@ FILE_STORAGE = os.getenv('FILE_STORAGE')
 
 intents = discord.Intents.all()
 
-bot = bridge.Bot(command_prefix='!', intents=intents, application_commands=True)
-
-# prepare the personality quiz data
-with open('quiz/natures-en.json') as f:
-    natures = json.load(f)
-with open('quiz/questions-en.json') as f:
-    questions = json.load(f)
-with open('quiz/naturetopokemon-en.json') as f:
-    nature_to_pokemon = json.load(f)
-with open('quiz/naturedescription-en.json') as f:
-    nature_description = json.load(f)
+bot = commands.Bot(command_prefix='!', intents=intents, application_commands=True)
 
 # fetch the bot's database; implicitly create one if nonexistent
+#TODO: error handling?
 conn = sqlite3.connect(FILE_STORAGE + "pmd.db")
 cur = conn.cursor()
 
 # Set Time Zone
 pacific_timezone = ZoneInfo("America/Los_Angeles")
 
+
+#TODO: Remove and build a standardized help panel in its own module
 async def generate_embed():
-    embed = discord.Embed(url="https://github.com/TallonRain/pmd-bot", title="Source Code", colour=discord.Colour.default())
+    embed = discord.Embed(url="https://github.com/TallonRain/pmd-bot", title="Source Code",
+                          colour=discord.Colour.default())
     embed.add_field(name="Pokémon Mystery Dungeon Bot", value="")
     embed.add_field(name="Field 2", value="Value 2")
     embed.timestamp = datetime.datetime.now(pacific_timezone)
     embed.set_footer(text="This is a footer.")
     return embed
+
 
 # iterate through all the cogs and load them into the bot
 def load_cogs():
@@ -54,6 +48,8 @@ def load_cogs():
             numofcogs += 1
     print(f"{numofcogs} cog(s) loaded.")
 
+
+#TODO: remove from the main module
 @bot.event
 async def on_message(message):
     if message.author == bot.user:
@@ -73,8 +69,7 @@ async def on_ready():
         print("\n!!DEBUG MODE ENABLED!!\n")
 
 
-
 load_cogs()
 # fixup addresses a fatal SSL & authentication bug in Discord.py
+#TODO: Is this still necessary for Pycord?
 fixup.run(bot, DISCORD_TOKEN, DEBUG_MODE)
-
