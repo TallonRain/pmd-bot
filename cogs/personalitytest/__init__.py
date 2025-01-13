@@ -18,16 +18,14 @@ natures = load_natures()
 
 
 class QuizButton(discord.ui.Button):
-    # The button needs to be given labels for A, B, C, D answers and the custom_id should be the same
     def __init__(self, callback: Callable[[str, discord.Interaction], Awaitable[None]], label: str, custom_id: str):
         self.user_callback = callback
         super().__init__(label=label, style=discord.ButtonStyle.secondary, custom_id=custom_id)
 
-    # core logic should go here
     async def callback(self, interaction: discord.Interaction):
         await self.user_callback(self.custom_id, interaction)
 
-
+# constructs the internal state of the personality test session to track progress
 class QuizState:
     def __init__(self, user_id: int, question_list: list[int]):
         self.user_id = user_id
