@@ -3,15 +3,13 @@ import discord
 from discord.ext import commands
 import string
 from typing import Optional
-
-from main import DEBUG_MODE
 from .data import load_questions, load_pokemon, load_natures
 from utils.testutils import generate_unique_random_numbers
 
-long_description = "This is the portal that leads to the world inhabited only by Pokémon.\nBeyond this gateway, " \
-                   "many new adventures and fresh experiences await your arrival!\nBefore you depart for the " \
-                   "adventure, you must answer some questions.\nBe truthful when you answer them!\nNow, " \
-                   "are you ready?\nThen...let the questions begin!"
+long_description = "This is the portal that leads to the world inhabited only by Pokémon. Beyond this gateway, " \
+                   "many new adventures and fresh experiences await your arrival! Before you depart for the " \
+                   "adventure, you must answer some questions. Be truthful when you answer them! Now, " \
+                   "are you ready? Then...let the questions begin!"
 
 # prepare the personality test data
 questions = load_questions()
@@ -52,10 +50,9 @@ class PersonalityTest(commands.Cog):
         self.bot = bot
         self.ongoing_quizzes: dict[int, QuizState] = {}
 
+    # Beginning of the /pmd command
     @discord.slash_command(description="Welcome to the world inhabited only by Pokémon...")
     async def pmd(self, ctx: discord.ApplicationContext):
-        # needed to maintain context of who used the command so we can respond to them specifically and save their
-        # results later
         question_numbers = generate_unique_random_numbers(10, 0, 63)  # select ten questions from the pool
         user_id = ctx.author.id
         state = QuizState(user_id, question_numbers)
@@ -64,10 +61,14 @@ class PersonalityTest(commands.Cog):
         embed, view = self.generate_response_parts(state)
         state.last_message = await ctx.respond(embed=embed, ephemeral=True, view=view)
 
+    # Fetch what question the user just responded to in their session, score it, check if we have more, and then set
+    # up and send the next question if we do. Else, end the quiz.
     async def button_callback(self, original_user_id: int, custom_id: str, interaction: discord.Interaction):
         state = self.ongoing_quizzes[original_user_id]
-        state.accumulate_scores(questions[state.question_list[state.current_question_index]].answers[int(custom_id)].natures)
-        print(state.scores)
+        real_question_number = state.question_list[state.current_question_index]
+        question = questions[real_question_number]
+        selected_answer = question.answers[int(custom_id)]
+        state.accumulate_scores(selected_answer.natures)
 
         if state.current_question_index >= len(state.question_list) - 1:
             await self.end_quiz(state, interaction)
@@ -78,6 +79,7 @@ class PersonalityTest(commands.Cog):
         await state.last_message.edit_original_response(embed=embed, view=view)
         await interaction.response.defer(invisible=True)
 
+    # End the quiz, terminate the session, send final results
     async def end_quiz(self, state: QuizState, interaction: discord.Interaction):
         nature = state.top_nature
         pokemon = pokemon_map[nature]
@@ -93,6 +95,7 @@ class PersonalityTest(commands.Cog):
         await interaction.response.defer(invisible=True)
         del self.ongoing_quizzes[state.user_id]
 
+    # Generate the Discord embeds which convey the series of questions to the user
     def generate_response_parts(self, state: QuizState) -> (discord.Embed, discord.ui.View):
         view = discord.ui.View()
         embed = discord.Embed(
