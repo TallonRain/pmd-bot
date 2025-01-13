@@ -4,6 +4,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import fixup
 import datetime
+import pathlib
 from zoneinfo import ZoneInfo
 
 load_dotenv()
@@ -34,9 +35,12 @@ async def generate_embed():
 # iterate through all the cogs and load them into the bot
 def load_cogs():
     numofcogs = 0
-    for filename in os.listdir('./cogs'):
-        if filename.endswith('.py'):
-            bot.load_extension(f'cogs.{filename[:-3]}')
+    for filepath in pathlib.Path('./cogs').iterdir():
+        if filepath.suffix == '.py':
+            bot.load_extension(f'cogs.{filepath.stem}')
+            numofcogs += 1
+        elif (filepath / '__init__.py').exists():
+            bot.load_extension(f'cogs.{filepath.name}')
             numofcogs += 1
     print(f"{numofcogs} cog(s) loaded.")
 
