@@ -90,7 +90,7 @@ class PersonalityTest(commands.Cog):
             color=discord.Color.blurple(),
             description=nature_desc
         )
-        embed.add_field(name="", value=f"{pokemon[0]} or {pokemon[1]}")
+        embed.add_field(name="", value=f"Would be a {pokemon[0]} or {pokemon[1]}!")
         await state.last_message.edit_original_response(embed=embed, view=discord.ui.View())
         await interaction.response.defer(invisible=True)
         del self.ongoing_quizzes[state.user_id]
