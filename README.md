@@ -4,7 +4,11 @@ A Discord bot written in Python using [Pycord](https://pycord.dev)
 
 PMD Bot runs a simulation of the Pokémon Mystery Dungeon universe for use in Discord channels.
 
-### Installation & Requirements
+## [Recommended] Install in Your Server
+
+You can [click here](https://discord.com/oauth2/authorize?client_id=1324951929851351062) to install PMD Bot into your server.
+
+### [Optional] Installation & Requirements for Running Your Own Instance
 
 Currently, you must populate a `.env` file with three values:
 
@@ -17,12 +21,22 @@ Currently, you must populate a `.env` file with three values:
 
 The bot must be granted the following role permissions in order to function correctly:
 
-TBD
+- View Channel
+- Send Messages
+- Embed Links
+- Read Message History
+- Use Applicaion Commands
+- Send Messages in Threads
+
+This list is subject to change. Additional permissions may be required in future builds of PMD Bot.
 
 #### Server Settings
 
-TBD
+Assign a bot channel for your server and then configure PMD Bot for it.
+Further details TBD.
 
-### Credits
+### Special Thanks
+
+This bot wouldn't have been possible without the help of the following:
 
 The PMD Personality Quiz data provided by: [Nrosa01's PMD Quiz Online](https://github.com/Nrosa01/pmd-quiz-online)
