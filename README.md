@@ -4,6 +4,14 @@ A Discord bot written in Python using [Pycord](https://pycord.dev)
 
 PMD Bot runs a simulation of the Pokémon Mystery Dungeon universe for use in Discord channels.
 
+### How to Use
+
+PMD Bot is operated with modern Slash Commands. The available commands are as follows:
+
+| Slash Commands | Effects                                             | Permissions |
+|----------------|-----------------------------------------------------|-------------|
+| `/pmd`         | Start of your Journey. Begins the Personality Test. | Everyone    |
+
 ## [Recommended] Install in Your Server
 
 You can [click here](https://discord.com/oauth2/authorize?client_id=1324951929851351062) to install PMD Bot into your server.
