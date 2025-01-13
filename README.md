@@ -13,7 +13,6 @@ You can [click here](https://discord.com/oauth2/authorize?client_id=132495192985
 Currently, you must populate a `.env` file with three values:
 
 - `DISCORD_TOKEN`: must be populated with the bot's auth token from the developer portal
-- `PMD_CHANNEL_ID`: must have the channel ID of the PMD bot channel (TEMPORARY MEASURE, VALUE TO BE REMOVED)
 - `DEBUG_MODE`: Enable or disable debug mode as a boolean value, `1` or `0` (Disable this with `0` when deploying)
 - `FILE_STORAGE`: Define a directory where the bot writes persistent data to, such as `/data/` or leave blank for local directory
 
