@@ -120,6 +120,5 @@ class PersonalityTest(commands.Cog):
         return embed, view
 
 
-
 def setup(bot):
     bot.add_cog(PersonalityTest(bot))

@@ -9,4 +9,3 @@ def generate_unique_random_numbers(n, min_val, max_val):
     numbers = list(range(min_val, max_val + 1))
     random.shuffle(numbers)
     return numbers[:n]
-

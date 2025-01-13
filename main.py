@@ -5,18 +5,15 @@ from dotenv import load_dotenv
 import fixup
 import pathlib
 
-
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
-PMD_CHANNEL_ID = int(os.getenv('PMD_CHANNEL_ID'))
 DEBUG_MODE = bool(int(os.getenv('DEBUG_MODE')))
 FILE_STORAGE = os.getenv('FILE_STORAGE')
 
-
 intents = discord.Intents.all()
 
-
 bot = commands.Bot(command_prefix='!', intents=intents, application_commands=True)
+
 
 # iterate through all the cogs and load them into the bot
 def load_cogs():
@@ -41,5 +38,5 @@ async def on_ready():
 
 load_cogs()
 # fixup addresses a fatal SSL & authentication bug in Discord.py
-#TODO: Is this still necessary for Pycord?
+# TODO: Is this still necessary for Pycord?
 fixup.run(bot, DISCORD_TOKEN, DEBUG_MODE)
