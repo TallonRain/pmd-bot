@@ -1,12 +1,4 @@
-import json
 import random
-
-with open('quiz/questions-en.json') as f:
-    question_data = json.load(f)
-
-
-def fetch_question(iteration):
-    return question_data[iteration]['title']
 
 
 def generate_unique_random_numbers(n, min_val, max_val):
