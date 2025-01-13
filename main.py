@@ -1,13 +1,10 @@
 import os
 import discord
-from discord import application_command
 from discord.ext import commands
 from dotenv import load_dotenv
 import fixup
 import datetime
 from zoneinfo import ZoneInfo
-import json
-import sqlite3
 
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
@@ -18,11 +15,6 @@ FILE_STORAGE = os.getenv('FILE_STORAGE')
 intents = discord.Intents.all()
 
 bot = commands.Bot(command_prefix='!', intents=intents, application_commands=True)
-
-# fetch the bot's database; implicitly create one if nonexistent
-#TODO: error handling?
-conn = sqlite3.connect(FILE_STORAGE + "pmd.db")
-cur = conn.cursor()
 
 # Set Time Zone
 pacific_timezone = ZoneInfo("America/Los_Angeles")
