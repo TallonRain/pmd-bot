@@ -18,10 +18,4 @@ def run(client, token, debug_mode):
     if not debug_mode:
         logging.basicConfig(level=logging.INFO)
 
-    try:
-        asyncio.run(runner())
-    except KeyboardInterrupt:
-        # nothing to do here
-        # `asyncio.run` handles the loop cleanup
-        # and `self.start` closes all sockets and the HTTPClient instance.
-        return
+    asyncio.run(runner())

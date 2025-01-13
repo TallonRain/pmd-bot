@@ -1,13 +1,11 @@
 import os
 import discord
-from discord import application_command
 from discord.ext import commands
 from dotenv import load_dotenv
 import fixup
 import datetime
+import pathlib
 from zoneinfo import ZoneInfo
-import json
-import sqlite3
 
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
@@ -18,11 +16,6 @@ FILE_STORAGE = os.getenv('FILE_STORAGE')
 intents = discord.Intents.all()
 
 bot = commands.Bot(command_prefix='!', intents=intents, application_commands=True)
-
-# fetch the bot's database; implicitly create one if nonexistent
-#TODO: error handling?
-conn = sqlite3.connect(FILE_STORAGE + "pmd.db")
-cur = conn.cursor()
 
 # Set Time Zone
 pacific_timezone = ZoneInfo("America/Los_Angeles")
@@ -42,9 +35,12 @@ async def generate_embed():
 # iterate through all the cogs and load them into the bot
 def load_cogs():
     numofcogs = 0
-    for filename in os.listdir('./cogs'):
-        if filename.endswith('.py'):
-            bot.load_extension(f'cogs.{filename[:-3]}')
+    for filepath in pathlib.Path('./cogs').iterdir():
+        if filepath.suffix == '.py':
+            bot.load_extension(f'cogs.{filepath.stem}')
+            numofcogs += 1
+        elif (filepath / '__init__.py').exists():
+            bot.load_extension(f'cogs.{filepath.name}')
             numofcogs += 1
     print(f"{numofcogs} cog(s) loaded.")
 
