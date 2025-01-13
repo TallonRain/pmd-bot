@@ -1,6 +1,4 @@
-import random
 import json
-import string
 import discord
 from discord.ext import commands
 
@@ -22,6 +20,7 @@ with open('quiz/naturetopokemon-en.json') as f:
 with open('quiz/naturedescription-en.json') as f:
     nature_description = json.load(f)
 
+
 class QuizButton(discord.ui.Button):
     # The button needs to be given labels for A, B, C, D answers and the custom_id should be the same
     def __init__(self, label: str, custom_id: str):
@@ -29,15 +28,7 @@ class QuizButton(discord.ui.Button):
 
     # core logic should go here
     async def callback(self, interaction: discord.Interaction):
-        await interaction.edit(custom_id=self.custom_id)
         await interaction.response.send_message(f"You clicked {self.label}!", ephemeral=True)
-
-
-class InteractiveButton(discord.ui.View):
-    @discord.ui.button(label="0", style=discord.ButtonStyle.secondary)
-    async def answer_option(self, button: discord.ui.Button, interaction: discord.Interaction,):
-        i = int(button.label) if button.label else "ERROR"
-        self.add_item(QuizButton(label=string.ascii_uppercase[i], custom_id=string.ascii_uppercase[i]))
 
 
 class PersonalityTest(commands.Cog):
