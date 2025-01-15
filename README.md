@@ -1,8 +1,10 @@
 # PMD Bot
 
-A Discord bot written in Python using [Pycord](https://pycord.dev)
+A Discord bot written in Python 3.12 using [Pycord](https://pycord.dev)
 
-PMD Bot runs a simulation of the Pokémon Mystery Dungeon universe for use in Discord channels.
+PMD Bot recreates aspects of the Pokémon Mystery Dungeon universe for use in Discord servers.
+
+----
 
 ### How to Use
 
@@ -12,17 +14,20 @@ PMD Bot is operated with modern Slash Commands. The available commands are as fo
 |----------------|-----------------------------------------------------|-------------|
 | `/pmd`         | Start of your Journey. Begins the Personality Test. | Everyone    |
 
-## [Recommended] Install in Your Server
+----
 
-You can [click here](https://discord.com/oauth2/authorize?client_id=1324951929851351062) to install PMD Bot into your server.
+## Install in Your Server
 
-### [Optional] Installation & Requirements for Running Your Own Instance
+You can **[click here](https://discord.com/oauth2/authorize?client_id=1324951929851351062)** to install PMD Bot into your server.
+
+----
+
+#### [Debug/Development Instructions] Installation & Requirements for Running Your Own Instance for Debug & Development
 
 Currently, you must populate a `.env` file with three values:
 
 - `DISCORD_TOKEN`: must be populated with the bot's auth token from the developer portal
 - `DEBUG_MODE`: Enable or disable debug mode as a boolean value, `1` or `0` (Disable this with `0` when deploying)
-- `FILE_STORAGE`: Define a directory where the bot writes persistent data to, such as `/data/` or leave blank for local directory
 
 #### Required permissions
 
@@ -39,8 +44,7 @@ This list is subject to change. Additional permissions may be required in future
 
 #### Server Settings
 
-Assign a bot channel for your server and then configure PMD Bot for it.
-Further details TBD.
+No server settings required.
 
 ### Special Thanks
 
