@@ -25,6 +25,7 @@ class QuizButton(discord.ui.Button):
     async def callback(self, interaction: discord.Interaction):
         await self.user_callback(self.custom_id, interaction)
 
+
 # constructs the internal state of the personality test session to track progress
 class QuizState:
     def __init__(self, user_id: int, question_list: list[int]):
